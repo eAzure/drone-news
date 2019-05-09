@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/demo/demo",
+    "pages/circle/circle",
+    "pages/mine/mine",
+    "pages/news/news",
+    "pages/video/video",
+    "pages/publicTell/publicTell",
+    "pages/newsPage/newsPage",
+    "pages/manager/manager",
+    "pages/firstPage/firstPage",
+    "pages/writeNews/writeNews",
+    "pages/sendVideo/sendVideo",
+    "pages/collectPage/collectPage",
+    "pages/writeCircle",
+    "pages/writeCircle/writeCircle"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "新闻",
+        "selectedIconPath": "images/红辣椒.png",
+        "iconPath": "images/辣椒.png"
+      },
+      {
+        "pagePath": "pages/circle/circle",
+        "selectedIconPath": "images/绿朋友圈.png",
+        "iconPath": "images/朋友圈.png",
+        "text": "圈子"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "selectedIconPath": "images/红个人中心.png",
+        "iconPath": "images/个人中心.png",
+        "text": "我的"
+      }
+    ]
+  }
+}

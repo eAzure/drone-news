@@ -1,0 +1,18 @@
+<!--pages/video/video.wxml-->
+<block wx:for="{{posts_key}}" wx:for-item="item" wx:for-index="id" >
+<view class='post-container'>
+<view class='post-author-date'>
+<image id='{{id}}' class='post-author' src='{{item.authorImage}}' bindtap='authorClick'></image>
+<text class='post-date'>{{item.creatTime}}</text>
+</view>
+<text id='{{id}}' class='post-title' bindtap='newsClick'>{{item.videoTitle}}</text>
+<video id="{{id}}" class='post-video' src='{{item.videoSrc}}' bindtap='newsClick'></video>
+<text id="{{id}}" class='post-content' bindtap='newsClick'>{{item.videoContent}}</text>
+<view class='post-like'>
+<image id='{{id}}' class='post-likeAndCollectionImage' src='{{item.viewImage}}' bindtap='likeCount'></image>
+<text class='post-likeAndCollection-font'>{{item.readCount}}</text>
+<image id='{{id}}' class='post-likeAndCollectionImage' src='{{item.collectImage}}' bindtap='collectCount'></image>
+<text class='post-likeAndCollection-font'>{{item.collectCount}}</text>
+</view>
+</view>
+</block>

@@ -1,0 +1,117 @@
+/* pages/circle/circle.wxss */
+.flex-Row{
+  display: flex;
+  flex-direction: column;
+  margin-top: 100rpx;
+}
+.firstImages{
+  width: 100%;
+  height: 400rpx;
+}
+.movie-container{
+  display: flex;
+  flex-direction: column;
+}
+.navbar{
+  display: flex;
+  position: absolute;
+  left: 0;
+  z-index: 500;
+  width: 100%;
+  height: 50px;
+  flex-direction: row;
+  text-align: center;
+  color: #A8A8A8;
+  font-size: 15px;
+  box-sizing: border-box;
+  background-color: #FFF;
+  border-bottom: 1rpx solid #DFDFDF;
+}
+.navbar-item{
+  flex: 1;
+  padding: 26rpx 0px;
+}
+.navbar-item-active{
+  transition: all 0.3s;
+  border-bottom: 10rpx solid #494949;
+  color: #494949;
+}
+.movie-content-wrapper{
+  padding-top: 50px;
+}
+/* pages/news/news.wxss */
+/*实现图文列表的格式*/
+.post-container{
+  display: flex;
+  flex-direction: column;
+  margin-top: 50rpx;
+  margin-bottom: 40rpx;
+  background-color: #fff;
+  border-bottom: 1px solid #ededed;
+  border-top: 1px solid #ededed;
+  padding-bottom: 5px;
+}
+.post-author-date{
+  margin: 10 rpx 0 20rpx 10rpx;
+}
+.post-author{
+  width: 60rpx;
+  height: 60rpx;
+  vertical-align: middle;
+}
+.post-date{
+  margin-left: 20rpx;
+  vertical-align: middle;
+  margin-bottom: 5px;
+  font-size: 26rpx;
+}
+.post-title{
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+.post-image{
+  width: 100%;
+  height: 340rpx;
+  margin: auto 0;
+  margin-bottom: 15px;
+}
+.post-content{
+  color: #666;
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+  margin-left: 20rpx;
+  letter-spacing: 2rpx;
+  line-height: 40rpx;
+}
+.post-like{
+  font-size: 20rpx;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 10px;
+}
+.post-likeAndCollectionImage{
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.post-likeAndCollection-font{
+  vertical-align: middle;
+  margin-right: 20rpx;
+}
+/*悬浮按钮的制作*/
+.buttom{
+  width: 12vw;
+  height: 12vw;
+  background: #fff;
+  margin-top: 1.6vw;
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  right:0;
+  bottom:70rpx;
+  background-color: transparent;
+}

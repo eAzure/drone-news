@@ -1,0 +1,19 @@
+<!--pages/news/news.wxml-->
+<!--这是图文列表的实现--><!--注意看这里循环上加了一个id用于标定循环元素的序号-->
+<block wx:for="{{posts_key}}" wx:for-item="item" wx:for-index="id" >
+<view class='post-container'>
+<view class='post-author-date'>
+<image id='{{id}}' class='post-author' src='{{item.authorImage}}' bindtap='authorClick'></image>
+<text class='post-date'>{{item.creatTime}}</text>
+</view>
+<text id='{{id}}' class='post-title' bindtap='newsClick'>{{item.title}}</text>
+<image id="{{id}}" class='post-image' src='{{item.coverImage}}' bindtap='newsClick'></image>
+<text id="{{id}}" class='post-content' bindtap='newsClick'>{{item.newsContent}}</text>
+<view class='post-like'>
+<image id='{{id}}' class='post-likeAndCollectionImage' src='{{item.viewImage}}' bindtap='likeCount'></image>
+<text class='post-likeAndCollection-font'>{{item.readCount}}</text>
+<image id='{{id}}' class='post-likeAndCollectionImage' src='{{item.collectImage}}' bindtap='collectCount'></image>
+<text class='post-likeAndCollection-font'>{{item.collectCount}}</text>
+</view>
+</view>
+</block>

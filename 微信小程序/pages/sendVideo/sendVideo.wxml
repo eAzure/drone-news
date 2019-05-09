@@ -1,0 +1,35 @@
+<!--pages/sendVideo/sendVideo.wxml-->
+<text>视频标题：</text>
+ <view class='person-line'></view>
+<view class="section">
+  <input style='font-size:15px' maxlength="30" placeholder="视频标题：最大输入长度30" bindinput='titleGet'/>
+</view>
+<view class='separate'></view>
+
+<text>视频链接</text>
+<view class='person-line'></view>
+<view class="section">
+  <input style='font-size:15px' maxlength="300" placeholder="视频来源：请输入视频的地址" bindinput='imgGet'/>
+</view>
+<view class='separate'></view>
+
+<text>视频简介：</text>
+ <view class='person-line'></view>
+<view class="section">
+  <textarea style='font-size:15px;width:100%;height:200rpx' maxlength='200' placeholder="视频简介" auto-focus bindblur='shortcontentGet'/>
+</view>
+ <view class='person-line'></view>
+<view class='separate'></view>
+
+
+
+<button
+  type="primary"
+  size="{{primarySize}}"
+  loading="{{loading}}"
+  plain="{{plain}}"
+  disabled="{{disabled}}"
+  bindtap='publishClick'
+>
+  发表视频
+</button>

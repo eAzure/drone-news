@@ -1,0 +1,121 @@
+<!--index.wxml-->
+<!--这是轮播图的实现-->
+<view class='totalLayout'>
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"  circular='true' current='{{swiperCurrent}}' bindchange='swiperChange'>
+    <block wx:for="{{imgUrls}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" bindtap='swipclick' />
+      </swiper-item>
+    </block>
+  </swiper>
+<!--这是按钮的实现-->
+<view class='layout_horizontal'>
+<button class='btn' bindtap='newsButtonClick'>
+<image class='btnImg' src='/images/眼睛.png'></image>
+<view>新闻</view>
+</button>
+<button class='btn' bindtap='writeNewsButtonClick'>
+<image class='btnImg' src='/images/发帖.png'></image>
+<view>写新闻</view>
+</button>
+<button class='btn' bindtap='sendVideoButtonClick'>
+<image class='btnImg' src='/images/拍照.png'></image>
+<view>发视频</view>
+</button>
+<button class='btn' bindtap='videoButtonClick'>
+<image class='btnImg' src='/images/视频.png'></image>
+<view>视频</view>
+</button>
+</view>
+<!--这里是公告栏的滚动实现-->
+<swiper  vertical="true"autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"  circular='true' class='swiperpublic'>
+    <block wx:for="{{publicMessages}}">
+      <swiper-item class="publicImage">
+      <image src='/images/公告.png' class='publicImageImage'></image>
+      <text class='publicFont'>{{item}}</text>
+      </swiper-item>
+    </block>
+  </swiper>
+<!--这里是新闻与视频分页的标签栏-->
+<view class='labelNewsOrVideo'><image src='/images/新闻标签分页.png' class='labelNewsOrVideoImageSize'></image><text>新闻</text></view>
+<!--这是图文列表的实现--><!--注意看这里循环上加了一个id用于标定循环元素的序号-->
+<block wx:for="{{posts_key}}" wx:for-item="item" wx:for-index="id" >
+<view class='post-container'>
+<view class='post-author-date'>
+<image id='{{id}}'  class='post-author' src='{{item.authorImage}}' bindtap='authorClick'></image>
+<text class='post-date'>{{item.creatTime}}</text>
+</view>
+<text id='{{id}}' class='post-title' bindtap='newsClick'>{{item.title}}</text>
+<image id="{{id}}" class='post-image' src='{{item.coverImage}}' bindtap='newsClick'></image>
+<text id="{{id}}" class='post-content' bindtap='newsClick'>{{item.newsContent}}</text>
+<view class='post-like'>
+<image id="{{id}}" class='post-likeAndCollectionImage' src='{{item.viewImage}}' ></image>
+<text class='post-likeAndCollection-font'>{{item.readCount}}</text>
+<image id='{{id}}' class='post-likeAndCollectionImage' src='{{item.collectImage}}' bindtap='collectCount'></image>
+<text class='post-likeAndCollection-font'>{{item.collectCount}}</text>
+</view>
+</view>
+</block>
+<!--这里是新闻与视频分页的标签栏-->
+<view class='labelNewsOrVideo'><image src='/images/视频标签分页.png' class='labelNewsOrVideoImageSize'></image><text>视频</text></view>
+<!--这是视频列表的实现--><!--注意看这里循环上加了一个id用于标定循环元素的序号-->
+<block wx:for="{{posts_VideoKey}}" wx:for-item="item" wx:for-index="id" >
+<view class='post-container'>
+<view class='post-author-date'>
+<image id='{{id}}' class='post-author' src='{{item.authorImage}}' bindtap='authorClick'></image>
+<text class='post-date'>{{item.creatTime}}</text>
+</view>
+<text id='{{id}}' class='post-title' bindtap='videoClick'>{{item.videoTitle}}</text>
+<video id="{{id}}" class='video' src='{{item.videoSrc}} '   ></video>
+<text id="{{id}}" class='post-content' bindtap='videoClick'>{{item.videoContent}}</text>
+<view class='post-like'>
+<image id='{{id}}' class='post-likeAndCollectionImage' src='{{item.viewImage}}' bindtap='likeCount'></image>
+<text class='post-likeAndCollection-font'>{{item.readCount}}</text>
+<image id='{{id}}' class='post-likeAndCollectionImage' src='{{item.collectImage}}' bindtap='collectCount'></image>
+<text class='post-likeAndCollection-font'>{{item.collectCount}}</text>
+</view>
+</view>
+</block>
+</view>
+<!--这是图文列表的实现
+<view class='container'>
+<scroll-view scroll-y>
+<view class='scroll-item-y'>
+<view class='layout_horizontalOfPage'>
+<image class='PageImage' src='/images/新闻1.jpg'></image>
+<text>这是一条文本</text>
+</view>
+</view>
+</scroll-view>
+<scroll-view scroll-y>
+<view class='scroll-item-y'>
+<view class='layout_horizontalOfPage'>
+<image class='PageImage' src='/images/新闻1.jpg'></image>
+<text>这是一条文本</text>
+</view>
+</view>
+</scroll-view>
+<scroll-view scroll-y>
+<view class='scroll-item-y'>
+<view class='layout_horizontalOfPage'>
+<image class='PageImage' src='/images/新闻1.jpg'></image>
+<text>这是一条文本</text>
+</view>
+</view>
+</scroll-view>
+</view>-->
+
+<!--
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>
+*/-->

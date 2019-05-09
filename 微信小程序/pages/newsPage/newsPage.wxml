@@ -1,0 +1,56 @@
+<!--pages/newsPage/newsPage.wxml-->
+<view class='post-container'>
+<text class='post-title'>{{title}}</text>
+<view class='post-author-date'>
+<image class='post-author' src='{{avatar}}'></image>
+<text class='post-date'>{{date}}</text>
+</view>
+<image class='post-image' src='{{imgSrc}}'></image>
+<text class='post-content'>{{concrete_content}}</text>
+
+<view class='post-like'>
+<image class='post-likeAndCollectionImage' src='{{view_image}}'></image>
+<text class='st-likeAndCollection-font'>{{reading}}</text>
+<image class='post-likeAndCollectionImage' src='{{collect_image}}' bindtap='collectCount'></image>
+<text class='post-likeAndCollection-font'>{{collection}}</text>
+</view>
+<!--评论区的实现-->
+<view >
+<view class='labelNewsOrVideo'><image src='/images/评论.png' class='labelNewsOrVideoImageSize'></image><text>评论</text></view>
+
+<block wx:for="{{comment}}" wx:for-item="item" wx:for-index="id" >
+<view class='post-container'>
+<view class='post-author-date'>
+<image id='{{id}}'  class='post-author' src='{{item.authorID}}' bindtap='authorClick'></image>
+<text class='post-date'>{{item.commentDate}}</text>
+</view>
+<text id="{{id}}" class='post-content' bindtap='newsClick'>{{item.newsComment}}</text>
+</view>
+</block>
+
+<!--发表评论的地方-->
+<text>发表评论：</text>
+ <view class='person-line'></view>
+<view class="section">
+<!--注意去掉auto-focux，否则会一开始就聚焦到输入框中-->
+  <textarea style='font-size:15px;width:100%;height:200rpx' maxlength='200' placeholder="写下你的见解吧" bindblur='shortcontentGet' value='{{clearInput}}'/>
+</view>
+
+<button
+  type="primary"
+  size="{{primarySize}}"
+  loading="{{loading}}"
+  plain="{{plain}}"
+  disabled="{{disabled}}"
+  bindtap='publishClick'
+>
+  发表评论
+</button>
+
+
+</view>
+
+
+
+
+</view>

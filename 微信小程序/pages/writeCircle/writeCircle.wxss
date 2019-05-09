@@ -1,0 +1,7 @@
+/* pages/writeCircle/writeCircle.wxss */
+.person-line{
+  width: 100%;
+  height: 2rpx;
+  background-color: lightgray;
+  margin-left: 90rpx;
+}

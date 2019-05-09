@@ -1,0 +1,59 @@
+/* pages/video/video.wxss */
+.post-container{
+  display: flex;
+  flex-direction: column;
+  margin-top: 50rpx;
+  margin-bottom: 40rpx;
+  background-color: #fff;
+  border-bottom: 1px solid #ededed;
+  border-top: 1px solid #ededed;
+  padding-bottom: 5px;
+}
+.post-author-date{
+  margin: 10 rpx 0 20rpx 10rpx;
+}
+.post-author{
+  width: 60rpx;
+  height: 60rpx;
+  vertical-align: middle;
+}
+.post-date{
+  margin-left: 20rpx;
+  vertical-align: middle;
+  margin-bottom: 5px;
+  font-size: 26rpx;
+}
+.post-title{
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+.post-video{
+  width: 100%;
+}
+.post-content{
+  color: #666;
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+  margin-left: 20rpx;
+  letter-spacing: 2rpx;
+  line-height: 40rpx;
+}
+.post-like{
+  font-size: 20rpx;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 10px;
+}
+.post-likeAndCollectionImage{
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.post-likeAndCollection-font{
+  vertical-align: middle;
+  margin-right: 20rpx;
+}

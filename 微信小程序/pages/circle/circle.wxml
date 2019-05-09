@@ -1,0 +1,44 @@
+<!--pages/circle/circle.wxml-->
+<block class="flex-Row">
+<image src='/images/无人机.jpg' class='firstImages'></image>
+<view class="movie-container">
+  <!-- 导航栏 -->
+  <view class="navbar">
+    <block wx:for="{{navbarTitle}}" wx:key="index">
+      <view class="navbar-item {{navbarActiveIndex === index ? 'navbar-item-active' : ''}}" data-navbar-index="{{index}}" catchtap="onNavBarTap">
+        <text>{{item.name}}</text>
+      </view>
+    </block>
+  </view>
+  <view class="movie-content-wrapper">
+    <swiper current="{{navbarActiveIndex}}" bindanimationfinish="onBindAnimationFinish" style='height:1000rpx'>
+      <swiper-item wx:for="{{navbar}}" wx:key="index" >
+        <scroll-view scroll-y="{{true}}">
+
+        <!--内部区域-->
+        <block>
+        <view class='post-container'>
+        <view class='post-author-date'>
+        <image  class='post-author' src='{{item.authorImage}}'></image>
+        <text class='post-date'>{{item.date}}</text>
+        </view>
+        <image  class='post-image' src='{{item.image}}' ></image>
+        <text  class='post-content' >{{item.content}}</text>
+        <view class='post-like'>
+        <image  class='post-likeAndCollectionImage' src='{{item.likeImage}}' ></image>
+        <text class='post-likeAndCollection-font'>{{item.reading}}</text>
+        <image  class='post-likeAndCollectionImage' src='{{item.collectImage}}' ></image>
+        <text class='post-likeAndCollection-font'>{{item.collection}}</text>
+        </view>
+        </view>
+        </block>
+
+
+        </scroll-view>
+      </swiper-item>
+    </swiper>
+  </view>
+</view>
+<!--发表圈子的操作-->
+<image class='buttom' src='/images/添加.png' bindtap='publishCilck'></image>
+</block>

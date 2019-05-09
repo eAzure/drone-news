@@ -1,0 +1,7 @@
+<!--pages/demo/demo.wxml-->
+<text>pages/demo/demo.wxml</text>
+<view class='style01 style02'>{{msg01}}{{msg02}}</view>
+<view>{{today}}</view>
+<button bindtap="btnTap">单击此处</button>
+<view>{{a+b}}+{{c}}+d</view>
+<view wx:for ='{{[1,2,x,4]}}'>{{item}}</view>

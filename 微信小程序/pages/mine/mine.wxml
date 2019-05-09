@@ -1,0 +1,56 @@
+<!--pages/mine/mine.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <image class='userinfo-avatar' src='{{userInfo.avatarUrl}}' background-size='cover'></image>
+    <text class='userinfo-nickname'>{{userInfo.nickName}}</text>
+  </view>
+  <view class='separate'></view>
+  <view class='line'></view>
+  <view class='navs'>
+  <block wx:for-items="{{toolsItem}}" wx:key="itemName" wx:for-index="id">
+  <view class='nav-item' data-type='{{item.itemName}}' data-typeid='item.itemId' bindtap='toolsClickJudge'>
+  <image class='nav-image' src='{{item.imageSrc}}' id='{{id}}'></image>
+  <text id='{{id}}'>{{item.itemName}}</text>
+  </view>
+  </block>
+  </view>
+  <view class='separate'></view>
+  <view class='person-list'>
+  <view class='list-item'>
+  <image class='item-image' src='/images/消息.png'></image>
+  <text class='item-text'>我的消息</text>
+  </view>
+  <view class='person-line'></view>
+  <view class='list-item'>
+  <image class='item-image' src='/images/朋友圈.png'></image>
+  <text class='item-text'>我的圈子</text>
+  </view>
+  <view class='separate'></view>
+  <view class='list-item'>
+  <image class='item-image' src='/images/设置.png'></image>
+  <text class='item-text'>设置</text>
+  </view>
+  <view class='person-line'></view>
+  <view class='list-item'>
+  <image class='item-image' src='/images/帮助.png'></image>
+  <text class='item-text'>帮助与反馈</text>
+  </view>
+  <view class='person-line'></view>
+  <view class='list-item'>
+  <image class='item-image' src='/images/关于.png'></image>
+  <text class='item-text'>关于</text>
+  </view>
+  </view>
+  <view class='separate'></view>
+
+  <view class='separate'></view>
+  <view class='list-item'>
+  <image class='item-image' src='/images/管理者.png'></image>
+  <text class='item-text' bindtap='toManager'>管理者模式</text>
+  </view>
+  <view class='separate'></view>
+
+
+
+</view>
+
