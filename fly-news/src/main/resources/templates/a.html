@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head lang="en">
+    <meta charset="utf-8">
+    <title> a page</title>
+    <style type="text/css">
+        /* CSS样式制作 */
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: #336699;
+        }
+
+        #tab {
+            width: 1020px;
+            padding: 5px;
+            height: 250px;
+            margin: 20px;
+        }
+
+        #tab ul {
+            list-style: none;
+            height: 30px;
+            line-height: 30px;
+            border-bottom: 2px #C88 solid;
+        }
+
+        #tab ul li {
+            background: #FFF;
+            cursor: pointer;
+            float: left;
+            list-style: none;
+            height: 29px;
+            line-height: 29px;
+            padding: 0px 10px;
+            margin: 0px 10px;
+            border: 1px solid #BBB;
+            border-bottom: 2px solid #C88;
+        }
+
+        #tab ul li.on {
+            border-top: 2px solid Saddlebrown;
+            border-bottom: 2px solid #FFF;
+        }
+
+        #tab div {
+            height: 800px;
+            width: 1000px;
+            line-height: 24px;
+            border-top: none;
+            padding: 1px;
+            border: 1px solid #336699;
+            padding: 10px;
+        }
+
+        .titleCss {
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+    <!-- HTML页面布局 -->
+    <div id="title" class="titleCss">
+        <text>无人机新闻后台管理平台</text>
+    </div>
+    <div id="tab">
+        <ul>
+            <li class="on">首页</li>
+            <li class="off">新闻管理</li>
+            <li class="off">视频管理</li>
+            <li class="off">用户管理</li>
+        </ul>
+        <div id="firstPage" style="text-align:center;font-size:35px;">
+
+            <text>欢迎使用本无人机后台管理系统！</text>
+        </div>
+        <div id="secondPage" class="hide">
+            <table width="1000" border="1" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>新闻标题</th>
+                        <th>新闻简介</th>
+                        <th>内容链接</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="tbMain"></tbody>
+            </table>
+        </div>
+        <!--视频管理页-->
+        <div id="thirdPage" class="hide">
+        	<table width="1000" border="1" cellspacing="0">
+        		<thead>
+        			<tr>
+        				<th>编号</th>
+        				<th>视频标题</th>
+        				<th>视频简介</th>
+        				<th>视频链接</th>
+        				<th>操作</th>
+        			</tr>
+        		</thead>
+        		<tbody id="tbMainVideo"></tbody>
+        	</table>
+        </div>
+        <!--用户管理页-->
+        <div id="fouthPage" class="hide">
+        	
+        </div>
+    </div>
+
+</body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js">
+</script>
+<script type="text/javascript">
+    var per="";
+    var tbody="";
+    var perVideo="";
+    var tbodyVideo="";
+    //例如
+    jQuery.support.cors = true;
+    //ajax是异步的，所以执行到后面时是空的
+    $(function () {
+        $.ajax({
+            type: "post",
+            url: "http://localhost:8080/user/findAllNews",
+            dataType: "json",
+            success: function (result, status) {
+                if (status == "success") {
+                    per=result;
+                    transDataToTable();
+                    console.log(result);
+                }
+            },
+            error: function (e) {
+                alert("error");
+            },
+            complete: function () {
+            }
+        });
+        //在这里可以采取这种方式来同时获取多个url
+        $.ajax({
+            type: "post",
+            url: "http://localhost:8080/user/findAllVideo",
+            dataType: "json",
+            success: function (result, status) {
+                if (status == "success") {
+                    perVideo=result;
+                    transVideoDataToTable();
+                    console.log(result);
+                }
+            },
+            error: function (e) {
+                alert("error");
+            },
+            complete: function () {
+            }
+        });
+        
+        
+        
+    });
+    // JS实现选项卡切换
+    window.onload = function () {
+        var myTab = document.getElementById("tab");    //整个div
+        var myUl = myTab.getElementsByTagName("ul")[0];//一个节点
+        var myLi = myUl.getElementsByTagName("li");    //数组
+        var myDiv = myTab.getElementsByTagName("div"); //数组
+
+        for (var i = 0; i < myLi.length; i++) {
+            myLi[i].index = i;
+            myLi[i].onclick = function () {
+                for (var j = 0; j < myLi.length; j++) {
+                    myLi[j].className = "off";
+                    myDiv[j].className = "hide";
+                }
+                this.className = "on";
+                myDiv[this.index].className = "show";
+            }
+        }
+    }
+
+    //从后台获取数据
+
+    //从数据库中动态的获取数据
+    //模拟一段JSON数据，实际要从数据库中读取
+    function transDataToTable(){
+    	 tbody= document.getElementById('tbMain');
+    	for (var i = 0; i < per.length; i++) { //遍历一下json数据
+        	var trow = getDataRow(per[i]); //定义一个方法,返回tr数据
+        	tbody.appendChild(trow);
+   	 	}
+    }    
+    
+    //上面是新闻的，下面这一份是视频的
+    function transVideoDataToTable(){
+    	tbodyVideo=document.getElementById('tbMainVideo');
+    	for(var i=0;i<perVideo.length;i++){
+    		var trow=getDataRowVideo(perVideo[i]);
+    		tbodyVideo.appendChild(trow);
+    	}
+    }
+
+    function getDataRow(h) {
+        var row = document.createElement('tr'); //创建行
+
+        var idCell = document.createElement('td'); //创建第一列id
+        idCell.innerHTML = h.newsId; //填充数据
+        row.appendChild(idCell); //加入行  ，下面类似
+
+        var nameCell = document.createElement('td');//创建第二列title
+        nameCell.innerHTML = h.title;
+        row.appendChild(nameCell);
+
+        var jobCell = document.createElement('td');//创建第三列content
+        jobCell.innerHTML = h.newsContent;
+        row.appendChild(jobCell);
+
+        //到这里，json中的数据已经添加到表格中，下面为每行末尾添加删除按钮
+        
+        //加上下划线，用文字代替url的操作
+        var srcCell=document.createElement('td');//创建第四列src
+        var srcTest=document.createElement('a');
+        srcTest.innerHTML="内容连接";
+        srcTest.href="http://localhost:8080/user/findANews?NewsID="+h.newsId;
+        row.appendChild(srcTest);
+		
+		
+        var delCell = document.createElement('td');//创建第五列，操作列
+        row.appendChild(delCell);
+        var btnDel = document.createElement('input'); //创建一个input控件
+        btnDel.setAttribute('type', 'button'); //type="button"
+        btnDel.setAttribute('value', '删除');
+
+        //删除操作
+        btnDel.onclick = function () {
+            if (confirm("确定删除这一行嘛？")) {
+                //找到按钮所在行的节点，然后删掉这一行
+                //找到该一行的newsId
+                console.log(h.newsId);
+                this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
+                //btnDel - td - tr - tbody - 删除(tr)
+                //刷新网页还原。实际操作中，还要删除数据库中数据，实现真正删除
+                //使用XMLHttpRequest方法进行访问，进行页面的真正删除
+                var xmlReq=new XMLHttpRequest();
+                xmlReq.timeout=5000;
+                xmlReq.ontimeout=function(event){
+                	alert("请求超时!");
+                }
+                var url="/user/deleteNews?id="+h.newsId;
+                xmlReq.open("GET",url);
+                xmlReq.send();
+                xmlReq.onreadystatechange=function(){
+                	if(xmlReq.readyState==4&&xmlReq.status==200){
+                		alert(xmlReq.responseText);
+                	}else{
+                		alert(xmlReq.statusText);
+                	}
+                }
+            }
+        }
+        delCell.appendChild(btnDel);  //把删除按钮加入td，别忘了
+        return row; //返回tr数据	 
+    }
+    
+    //上面是新闻的，下面这个是视频的
+    function getDataRowVideo(h){
+    	var row = document.createElement('tr'); //创建行
+
+        var idCell = document.createElement('td'); //创建第一列id
+        idCell.innerHTML = h.videoId; //填充数据
+        row.appendChild(idCell); //加入行  ，下面类似
+
+        var nameCell = document.createElement('td');//创建第二列title
+        nameCell.innerHTML = h.videoTitle;
+        row.appendChild(nameCell);
+
+        var jobCell = document.createElement('td');//创建第三列content
+        jobCell.innerHTML = h.videoContent;
+        row.appendChild(jobCell);
+        
+        //加上下划线，用文字代替url的操作
+        var srcCell=document.createElement('td');//创建第四列src
+        var srcTest=document.createElement('a');
+        srcTest.innerHTML="视频连接";
+        srcTest.href=h.videoSrc;
+        row.appendChild(srcTest);
+        
+        //srcCell.innerHTML=h.videoSrc;
+        //row.appendChild(srcCell);
+
+        //到这里，json中的数据已经添加到表格中，下面为每行末尾添加删除按钮
+
+        var delCell = document.createElement('td');//创建第五列，操作列
+        row.appendChild(delCell);
+        var btnDel = document.createElement('input'); //创建一个input控件
+        btnDel.setAttribute('type', 'button'); //type="button"
+        btnDel.setAttribute('value', '删除');
+        
+        //删除操作，这个删除部分为视频部分
+        btnDel.onclick = function () {
+            if (confirm("确定删除这一行嘛？")) {
+                //找到按钮所在行的节点，然后删掉这一行
+                //找到该一行的newsId
+                console.log(h.newsId);
+                this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
+                //btnDel - td - tr - tbody - 删除(tr)
+                //刷新网页还原。实际操作中，还要删除数据库中数据，实现真正删除
+                //使用XMLHttpRequest方法进行访问，进行页面的真正删除
+                var xmlReq=new XMLHttpRequest();
+                xmlReq.timeout=5000;
+                xmlReq.ontimeout=function(event){
+                	alert("请求超时!");
+                }
+                var url="/user/deleteVideo?id="+h.videoId;
+                xmlReq.open("GET",url);
+                xmlReq.send();
+                xmlReq.onreadystatechange=function(){
+                	if(xmlReq.readyState==4&&xmlReq.status==200){
+                		alert(xmlReq.responseText);
+                	}else{
+                		alert(xmlReq.statusText);
+                	}
+                }
+            }
+        }
+        delCell.appendChild(btnDel);  //把删除按钮加入td，别忘了
+        return row; //返回tr数据	 
+    }
+    
+</script>
+
+</html>

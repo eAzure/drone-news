@@ -1,0 +1,285 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>loginSecure</title>
+<style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+}
+#wrap {
+	height: 719px;
+	width: 100;
+	background-image: url(4.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	position: relative;
+}
+#head {
+	height: 120px;
+	width: 100;
+	background-color: #66CCCC;
+	text-align: center;
+	position: relative;
+}
+#foot {
+	width: 100;
+	height: 126px;
+	background-color: #CC9933;
+	position: relative;
+}
+#wrap .logGet {
+	height: 408px;
+	width: 368px;  
+	position: absolute;
+	background-color: #FFFFFF;
+	top: 20%;
+	right: 15%;
+}
+.logC a button {
+	width: 100%;
+	height: 45px;
+	background-color: #ee7700;
+	border: none;
+	color: white;
+	font-size: 18px;
+}
+.logGet .logD.logDtip .p1 {
+	display: inline-block;
+	font-size: 28px;
+	margin-top: 30px;
+	width: 86%;
+}
+#wrap .logGet .logD.logDtip {
+	width: 86%;
+	border-bottom: 1px solid #ee7700;
+	margin-bottom: 60px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-left: auto;
+}
+.logGet .lgD img {
+	position: absolute;
+	top: 12px;
+	left: 8px;
+}
+.logGet .lgD input {
+	width: 100%;
+	height: 42px;
+	text-indent: 2.5rem;
+}
+#wrap .logGet .lgD {
+	width: 86%;
+	position: relative;
+	margin-bottom: 30px;
+	margin-top: 30px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#wrap .logGet .logC {
+	width: 86%;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+}
+ 
+ 
+.title {
+	font-family: "宋体";
+	color: #FFFFFF;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);  /* 使用css3的transform来实现 */
+	font-size: 36px;
+	height: 40px;
+	width: 30%;
+}
+.div-inline{ display:inline} 
+.copyright {
+	font-family: "宋体";
+	color: #FFFFFF;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);  /* 使用css3的transform来实现 */
+	height: 60px;
+	width: 40%;
+	text-align:center;
+}
+	
+ 
+#foot .copyright .img {
+	width: 100%;
+	height: 24px;
+	position: relative;
+}
+.copyright .img .icon {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	margin-left: 22px;
+	vertical-align: middle;
+	background-image: url(%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6.png);
+	background-repeat: no-repeat;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+	
+.copyright .img .icon1 {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	margin-left: 22px;
+	vertical-align: middle;
+	background-image: url(%E5%9C%B0%E5%9D%80.png);
+	background-repeat: no-repeat;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+.copyright .img .icon2 {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	margin-left: 22px;
+	vertical-align: middle;
+	background-image: url(%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F.png);
+	background-repeat: no-repeat;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+#foot .copyright p {
+	height: 24px;
+	width: 100%;
+}
+</style>
+</head>
+ 
+<body>
+<div class="header" id="head">
+  <div class="title">无人机新闻管理系统</div>
+	
+</div>
+	
+<div class="wrap" id="wrap">
+	<div class="logGet">
+			<!-- 头部提示信息 -->
+			<div class="logD logDtip">
+				<p class="p1">登录</p>
+			</div>
+			<!-- 输入框 -->
+			<div class="lgD">
+				<input type="text"
+					placeholder="输入用户名" id="userNickNameInput" />
+			</div>
+			<div class="lgD">
+				<input type="password"
+					placeholder="输入用户密码" id="userPassWordInput"/>
+			</div>
+			
+			
+			<div class="logC">
+				<a ><button onclick="login()">登 录</button></a>
+			</div>
+			<div class="logC" style=" margin-top: 20px">
+				<a ><button onclick="regist()">注 册</button></a>
+			</div>
+			
+			
+		</div>
+</div>
+	
+<div class="footer" id="foot">
+  <div class="copyright">
+    <p>Copyright © 2019 Qunar.com Inc. All Rights Reserved.</p>
+ 
+ 
+  </div>
+	
+</div>
+		
+</body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script type="text/javascript">
+	function login(){
+		//获取输入框里的值
+		var getInputValue=document.getElementById("userNickNameInput").value;
+		var getpassWordInputValue=document.getElementById("userPassWordInput").value;
+		if(!getInputValue||!getpassWordInputValue){
+			alert("用户名或密码不能为空！")
+		}else{
+		//与后台进行信息的交互
+			//alert(getInputValue+" "+getpassWordInputValue)
+			
+			var randNum="";
+			var passAndRand="";
+			var xmlReq=new XMLHttpRequest();
+			xmlReq.timeout=5000;
+			xmlReq.ontimeout=function(event){
+				alert("请求超时！");
+			}
+			getInputValue=getInputValue.replace(/\"/g,"");
+			getpassWordInputValue=getpassWordInputValue.replace(/\"/g,"");
+			var url="/user/returnRandom?nickName="+getInputValue;
+			xmlReq.open("GET",url);
+			xmlReq.send();
+			xmlReq.onreadystatechange=function(){
+				if(xmlReq.readyState==4&&xmlReq.status==200){
+					if(!xmlReq.responseText){
+					//若返回的是0，则应该说明一方面该用户名不存在或者说服务器端的产生随机数不对！
+						alert("登录失败！用户名或密码错误！");
+					}else{
+					//此时则需要将那个随机数返回，并与输入的密码值进行拼接，然后md5加密后与传过来的值进行比对
+						var xmlReqReturnRand=new XMLHttpRequest();
+						xmlReqReturnRand.timeout=5000;
+						xmlReqReturnRand.ontimeout=function(event){
+							alert("请求超时！");
+						}
+						var urlReturnRand="/user/returnRandomTrue?nickName="+getInputValue;
+						xmlReqReturnRand.open("GET",urlReturnRand);
+						xmlReqReturnRand.send();
+						xmlReqReturnRand.onreadystatechange=function(){
+							if(xmlReqReturnRand.readyState==4&&xmlReqReturnRand.status==200){
+								randNum=xmlReqReturnRand.responseText;
+								passAndRand=randNum+getpassWordInputValue;
+								passAndRand=passAndRand.replace(/\"/g,"");
+								//console.log(passAndRand);
+								passAndRand=md5(passAndRand);
+								var xmlReqLoginJudge=new XMLHttpRequest();
+								xmlReqLoginJudge.timeout=5000;
+								xmlReqLoginJudge.ontimeout=function(event){
+									alert("请求超时！");
+								}
+								var urlLoginJudge="/user/secureIdentify?nickName="+getInputValue;
+								xmlReqLoginJudge.open("GET",urlLoginJudge);
+								xmlReqLoginJudge.send();
+								xmlReqLoginJudge.onreadystatechange=function(){
+									if(xmlReqLoginJudge.readyState==4&&xmlReqLoginJudge.status==200){
+										if(passAndRand==xmlReqLoginJudge.responseText){
+											alert("登录成功！");
+											window.location.href="http://localhost:8080/user/a";
+										}else{
+											alert("登录失败！用户名或密码错误！");
+							}
+						}
+					}
+				}
+			}
+			
+		}
+	}
+}
+			
+			
+			
+		}
+	}
+	function regist(){
+        window.location.href="http://localhost:8080/user/regist";
+	}
+</script>
+</html>

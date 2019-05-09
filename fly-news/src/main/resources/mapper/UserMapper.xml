@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--上面2行的是约束依赖，固定照抄就好-->
+<!--下面的才是要自己编写的地方-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+<mapper namespace="com.example.demo.UserMapper">
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.example.demo.User">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="name" property="name" jdbcType="VARCHAR"></result>
+        <result column="age" property="age" jdbcType="INTEGER"></result>
+    </resultMap>
+    
+    <!-- 新闻格式 -->
+ 	<resultMap type="com.example.demo.News" id="NewsBaseResultMap">
+ 		<id column="NewsID" property="NewsID" jdbcType="INTEGER"></id>
+ 		<result column="NewsTitle" property="NewsTitle" jdbcType="LONGVARCHAR"></result>
+        <result column="NewsContent" property="NewsContent" jdbcType="LONGVARCHAR"></result>
+        <result column="CoverImage" property="CoverImage" jdbcType="LONGVARCHAR"></result>
+        <result column="ReadCount" property="ReadCount" jdbcType="INTEGER"></result>
+        <result column="CreatTime" property="CreatTime" jdbcType="DATE"></result>
+        <result column="NewsConcreteContent" property="NewsConcreteContent" jdbcType="LONGVARCHAR"></result>
+        <result column="CollectCount" property="CollectCount" jdbcType="INTEGER"></result>
+        <result column="CollectImage" property="CollectImage" jdbcType="LONGVARCHAR"></result>
+        <result column="ViewImage" property="ViewImage" jdbcType="LONGVARCHAR"></result>
+        <result column="Link" property="Link" jdbcType="LONGVARCHAR"></result>
+        <result column="AuthorImage" property="AuthorImage" jdbcType="LONGVARCHAR"></result>
+ 	</resultMap>
+ 	
+ 	
+ 	
+ 	<!-- 随机数格式 -->
+ 	<resultMap type="java.lang.String" id="RandomNumberBaseResultMap">
+ 		<id column="managerID" property="managerID" jdbcType="INTEGER"></id>
+ 		<result column="randNum" property="randNum" jdbcType="LONGVARCHAR"></result>
+ 	</resultMap>
+ 	
+ 	<!-- 视频格式 -->
+ 	<resultMap type="com.example.demo.Video" id="VideoBaseResultMap">
+ 		<id column ="VideoID" property="VideoID" jdbcType="INTEGER"></id>
+ 		<result column="CreatTime" property="CreatTime" jdbcType="DATE"></result>
+ 		<result column="VideoTitle" property="VideoTitle" jdbcType="LONGVARCHAR"></result>
+ 		<result column="VideoSrc" property="VideoSrc" jdbcType="LONGVARCHAR"></result>
+ 		<result column="VideoContent" property="VideoContent" jdbcType="LONGVARCHAR"></result>
+ 		<result column="ReadCount" property="ReadCount" jdbcType="INTEGER"></result>
+ 		<result column="CollectCount" property="CollectCount" jdbcType="INTEGER"></result>
+ 		<result column="AuthorImage" property="AuthorImage" jdbcType="LONGVARCHAR"></result>
+ 		<result column="ViewImage" property="ViewImage" jdbcType="LONGVARCHAR"></result>
+ 		<result column="CollectImage" property="CollectImage" jdbcType="LONGVARCHAR"></result>
+        <result column="Link" property="Link" jdbcType="LONGVARCHAR"></result> 
+        <result column="titleImage" property="titleImage" jdbcType="LONGVARCHAR"></result>
+        
+ 	</resultMap>
+ 	
+ 	<!-- 管理用户信息格式 -->
+ 	<resultMap type="com.example.demo.ManageUser" id="ManageUserBaseResultMap">
+ 		<id column="manageUserID" property="manageUserID" jdbcType="INTEGER"></id>
+ 		<result column="ManagerUserNickname" property="ManagerUserNickname" jdbcType="LONGVARCHAR"></result>
+ 		<result column="passWord" property="passWord" jdbcType="LONGVARCHAR"></result>
+ 	</resultMap>
+ 	
+ 	<!-- 新闻评论格式 -->
+ 	<resultMap type="com.example.demo.NewsComment" id="NewsCommentBaseResultMap">
+ 		<id column="CommentID" property="CommentID" jdbcType="INTEGER"></id>
+ 		<result column="NewsID" property="NewsID" jdbcType="INTEGER"></result>
+ 		<result column="NewsComment" property="NewsComment" jdbcType="LONGVARCHAR"></result>
+ 		<result column="AuthorID" property="AuthorID" jdbcType="LONGVARCHAR"></result>
+ 		<result column="CommentDate" property="CommentDate" jdbcType="LONGVARCHAR"></result>
+ 	</resultMap>
+ 	
+ 	<!-- 测试格式 -->
+ 	<resultMap id="TestBaseResultMap" type="com.example.demo.TestUser">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="name" property="name" jdbcType="LONGVARCHAR"></result>
+        <result column="job" property="job" jdbcType="LONGVARCHAR"></result>
+    </resultMap>
+ 	
+ 	
+ 	<!-- 测试查询 -->
+ 	<select id="searchTest" resultMap="TestBaseResultMap">
+ 		select *from test
+ 	</select>
+ 	
+ 	
+ 	
+    <!--插入语句-->
+    <!--id要与UserMapper文件中表示插入的函数名一致，parameterType表示函数的输入参数的类型-->
+    <insert id="insertUser" parameterType="com.example.demo.User">
+      insert into texttable(id,name,age)values(#{id,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{age,jdbcType=INTEGER})/*SQL语句*/
+    </insert>
+    
+    <!-- 插入管理者信息 -->
+    <insert id="insertManagerUser" parameterType="com.example.demo.ManageUser">
+    	insert into manager(manageUserID,ManagerUserNickname,passWord)values(#{manageUserID,jdbcType=INTEGER},#{ManagerUserNickname,jdbcType=LONGVARCHAR},#{passWord,jdbcType=LONGVARCHAR})
+    </insert>
+    
+    
+    <!-- 查询所有新闻 -->
+    <select id="searchAllNews" resultMap="NewsBaseResultMap">
+      select *from newstable 
+    </select>
+    
+    <!-- 查询所有视频 -->
+    <select id="searchAllVideo" resultMap="VideoBaseResultMap">
+    	select *from videotable
+    </select>
+    
+    <!--删除语句-->
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+      delete from texttable where id =#{id,jdbcType=INTEGER}
+    </delete>
+ 
+    <!--查找语句-->
+    <!--resultMap表示函数返回的类型-->
+    <select id="selectUser" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+       select * from texttable where id = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <!--查找语句-->
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from texttable
+    </select>
+    
+    <!-- 判断管理用户登录的信息 -->
+    <select id="searchManageUserInfo" resultMap="ManageUserBaseResultMap">
+    	select * from manager where ManagerUserNickname=#{ManagerUserNickname,jdbcType=LONGVARCHAR} and passWord=#{passWord,jdbcType=LONGVARCHAR}
+    </select>
+    
+    <!--修改语句-->
+    <update id="updateUser" parameterType="com.example.demo.User">
+        update texttable set name=#{name,jdbcType=VARCHAR},age=#{age,jdbcType=INTEGER} where id=#{id,jdbcType=INTEGER}
+    </update>
+    
+    <!-- 管理者删除新闻的操作 -->
+    <delete id="managerDelNews" parameterType="java.lang.Integer">
+    	delete from newstable where newsId=#{id,jdbcType=INTEGER}
+    </delete>
+    
+    <!-- 管理者在删除新闻的时候，要将主键NewsID的值按乱序后进行更改 ，该功能已经试验成功-->
+    <update id="updateNewsID">
+    	alter table test drop NewsID;
+    	alter table test add NewsID int(11) not null first;
+    	alter table test modify column NewsID int(11) not null auto_increment ,add  primary key(NewsID);
+    </update>
+    
+    <!-- 管理者删除视频的操作 -->
+    <delete id="managerDelVideo" parameterType="java.lang.Integer">
+    	delete from videotable where videoId=#{id,jdbcType=INTEGER}
+    </delete>
+    
+    
+
+	<!-- 用户上传新闻的操作 -->
+	<insert id="insertNews" parameterType="com.example.demo.News">
+      insert into newstable(NewsId,NewsTitle,NewsContent,CoverImage,ReadCount,CreatTime,NewsConcreteContent,CollectCount,CollectImage,ViewImage,Link,AuthorImage)values(#{NewsID,jdbcType=INTEGER},#{NewsTitle,jdbcType=LONGVARCHAR},#{NewsContent,jdbcType=LONGVARCHAR},#{CoverImage,jdbcType=LONGVARCHAR},#{ReadCount,jdbcType=INTEGER},#{CreatTime,jdbcType=DATE},#{NewsConcreteContent,jdbcType=LONGVARCHAR},#{CollectCount,jdbcType=INTEGER},#{CollectImage,jdbcType=LONGVARCHAR},#{ViewImage,jdbcType=LONGVARCHAR},#{Link,jdbcType=LONGVARCHAR},#{AuthorImage,jdbcType=LONGVARCHAR})/*SQL语句*/
+    </insert> 
+    
+    <!-- 用户上传视频的操作 -->
+    <insert id="insertVideo" parameterType="com.example.demo.Video">
+    	insert into videotable(VideoID,CreatTime,VideoTitle,VideoSrc,VideoContent,ReadCount,CollectCount,AuthorImage,ViewImage,CollectImage,Link,titleImage)values(#{VideoID,jdbcType=INTEGER},#{CreatTime,jdbcType=DATE},#{VideoTitle,jdbcType=LONGVARCHAR},#{VideoSrc,jdbcType=LONGVARCHAR},#{VideoContent,jdbcType=LONGVARCHAR},#{ReadCount,jdbcType=INTEGER},#{CollectCount,jdbcType=INTEGER},#{AuthorImage,jdbcType=LONGVARCHAR},#{ViewImage,jdbcType=LONGVARCHAR},#{CollectImage,jdbcType=LONGVARCHAR},#{Link,jdbcType=LONGVARCHAR},#{titleImage,jdbcType=LONGVARCHAR}) 
+    </insert>
+    
+    <!--用户上传新闻评论的操作-->
+    <insert id="insertComment" parameterType="com.example.demo.NewsComment">
+    	insert into newscomment(CommentID,NewsID,NewsComment,AuthorID,CommentDate)values(#{CommentID,jdbcType=INTEGER},#{NewsID,jdbcType=INTEGER},#{NewsComment,jdbcType=LONGVARCHAR},#{AuthorID,jdbcType=LONGVARCHAR},#{CommentDate,jdbcType=LONGVARCHAR})
+    </insert>
+    
+    <!-- 查询新闻数量 -->
+    <select id="searchNewsNum" resultType="int">
+      select count(*)from newstable 
+    </select>
+    
+    <!-- 查询视频的数量 -->
+    <select id="searchVideoNum" resultType="int">
+    	select count(*)from videotable
+    </select>
+    
+    <!-- 查询管理者数量 -->
+    <select id="searchManagerNum" resultType="int">
+    	select count(*)from manager
+    </select>
+    
+    <!-- 查询一条新闻中的评论 -->
+    <select id="searchNewsComment" resultMap="NewsCommentBaseResultMap">
+    	select * from newscomment where NewsID=#{NewsID,jdbcType=INTEGER}
+    </select>
+    
+    <!-- 获取一条新闻中的评论的数量 -->
+    <select id="searchCommentNum" resultType="int">
+    	select count(*)from newscomment
+    </select>
+    
+    <!-- 针对新闻的操作 -->
+    <!-- 点击喜欢按钮后更新喜欢值，并使其加一的操作，只需要传newsID即可-->
+    <update id="likeCount" parameterType="java.lang.Integer">
+    	update newstable set readCount=readCount+1 where newsId=#{newsId,jdbcType=INTEGER}
+    </update>
+    
+    <!-- 针对新闻收藏的操作，需要加上对于用户的判断，需要openID -->
+    <!-- 点击收藏按钮后的操作更新值 ，但这个时候需要考虑的是不收藏的情况该怎么办，我们根据此时的收藏状态来进行判断即可-->
+    <update id="collectCount" parameterType="java.lang.Integer">
+    	update newstable set collectCount=case when collectImage='/images/收藏红.png' then collectCount+1 else collectCount-1 end where newsId=#{newsId,jdbcType=INTEGER}
+    </update>
+    <!-- 点击收藏按钮后将新闻加入到一个收藏列表中(先获取该新闻) -->
+    <select id="collectNews" resultMap="NewsBaseResultMap">
+    	select *from newstable where newsId=#{newId,jdbcType=INTEGER}
+    </select>
+    <!-- 点击收藏后，直接将收藏新闻插入到收藏列表中的操作 -->
+    <insert id="NewsToCollect" parameterType="com.example.demo.News">
+      insert into collectnews (NewsId,NewsTitle,NewsContent,CoverImage,ReadCount,CreatTime,NewsConcreteContent,CollectCount,CollectImage,ViewImage,Link,AuthorImage)values(#{NewsID,jdbcType=INTEGER},#{NewsTitle,jdbcType=LONGVARCHAR},#{NewsContent,jdbcType=LONGVARCHAR},#{CoverImage,jdbcType=LONGVARCHAR},#{ReadCount,jdbcType=INTEGER},#{CreatTime,jdbcType=DATE},#{NewsConcreteContent,jdbcType=LONGVARCHAR},#{CollectCount,jdbcType=INTEGER},#{CollectImage,jdbcType=LONGVARCHAR},#{ViewImage,jdbcType=LONGVARCHAR},#{Link,jdbcType=LONGVARCHAR},#{AuthorImage,jdbcType=LONGVARCHAR})/*SQL语句*/
+    </insert> 
+    <!-- 点击收藏取消后，将新闻从收藏列表中删除 -->
+    <delete id="deleteCollectNews">
+    	delete from collectnews where NewsID=#{NewsID,jdbcType=INTEGER}
+    </delete>
+    <!-- 点击收藏后的按钮后将按钮的颜色改变 --><!--注意这种判断方式很有用！-->
+    <update id="changeNewsCollectImage" parameterType="java.lang.Integer">
+    	update newstable set collectImage=case when collectImage = '/images/收藏.png' then '/images/收藏红.png' else '/images/收藏.png' end  where newsId=#{newsId,jdbcType=INTEGER} 
+    </update>
+    <!-- 收藏的最后一步就是，在收藏页中获取收藏的新闻 -->
+    <select id="selectFromCollectNews" resultMap="NewsBaseResultMap">
+    	select * from collectnews 
+    </select>
+    
+	<!-- 管理者注册时，先返回用户注册的昵称，这里当然可以加上是否重复这一个判断，另外，安全机制是后台先获得用户名，后生成一个随机数存起来后返回
+	前端这里根据返回的随机数与密码按一定规则结合按md5加密返回 -->
+	<!-- 安全管理者的注册时-->
+	<insert id="insertSecureManagerUser" parameterType="com.example.demo.ManageUser">
+    	insert into managersecure(manageUserID,ManagerUserNickname,passWord)values(#{manageUserID,jdbcType=INTEGER},#{ManagerUserNickname,jdbcType=LONGVARCHAR},#{passWord,jdbcType=LONGVARCHAR})
+    </insert>
+	
+	<!-- 安全管理者的登录 -->
+	<!-- 首先是根据用户名在此时生成一个由本服务器产生的随机数 -->
+	<!-- 然后将该随机数插在密码的中间同时生成md5，后将该md5值传送过去，后在后台这端将密码与原有的随机数值按相同的规则同时生成md5 -->
+	<!-- 注意该机制的主要是用户每申请一次登陆时都会产生一个新的随机数，所以这是关键！ -->
+	<update id="changeRandNum" parameterType="java.lang.String">
+		update managersecure set randNum=floor(1 + rand()*200) where nickName=#{nickName,jdbcType=LONGVARCHAR}
+	</update>
+	<select id="selectRandom" resultType="String" parameterType="java.lang.String">
+		select randNum from managersecure where nickName=#{nickName,jdbcType=LONGVARCHAR}
+	</select>
+	<!-- 登录判断（注意这里的表中两字段的拼接方法，非常好！） -->
+	<select id="selectSecureIdentify" resultType="String">
+		select md5(concat(randNum,passWord)) from managersecure where nickName=#{nickName,jdbcType=LONGVARCHAR}
+	</select>
+	
+	<!-- 用户查找其中一条新闻的操作 -->
+	<select id="selectANews" resultType="com.example.demo.News">
+		select *from newstable where NewsID=#{NewsID,jdbcType=INTEGER}
+	</select>
+	
+</mapper>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>账户注册</title>
+	<style type="text/css">
+	body,input{
+		margin: 0;
+		padding: 0;
+		background: grey;
+	}
+	input{
+		display: inline-block;
+		background: #fff;
+	}
+	.xiao-container{
+		width: 100%;
+	}
+	.xiao-register-box{
+		position: relative;
+		height: 800px;
+		width: 800px;
+		top: 50px;
+		margin: 0 auto;
+		z-index: 99999;
+		background:#ffffff;
+		border: 7px solid #ccc;
+	}
+	.xiao-title-box{
+		position: absolute;
+		width: 300px;
+		height: 50px;
+		margin-left: 250px;
+		margin-top: 5px;
+		text-align: center;
+		font-size: 28px;
+		font-weight: 800;
+		color: #ff5000;
+		line-height: 50px;
+	}
+	.xiao-username-box{
+		position: absolute;
+		width: 420px;
+		height: 40px;
+		line-height: 40px;
+		margin-top:100px;
+		margin-left:80px;
+		font-weight: 700;
+	}
+	.xiao-username-input{
+		display: inline-block;
+		margin-left: 45px;
+		/*background: green;*/
+	}
+	#username{
+		height: 35px;
+		width: 290px;
+		border: 2px solid #ccc;
+		border-radius: 5px;
+	}
+	.xiao-userPassword-box{
+		position: absolute;
+		width: 420px;
+		height: 40px;
+		line-height: 40px;
+		margin-top:180px;
+		margin-left:80px;
+		font-weight: 700;
+	}
+	.xiao-userPassword-input{
+		display: inline-block;
+		margin-left: 61px;
+	}
+	#userPassword{
+		height: 35px;
+		width: 290px;
+		border: 2px solid #ccc;
+		border-radius: 5px;
+	}
+	.xiao-userRePassword-box{
+		position: absolute;
+		width: 420px;
+		height: 40px;
+		line-height: 40px;
+		margin-top:260px;
+		margin-left:80px;
+		font-weight: 700;
+	}
+	.xiao-userRePassword-input{
+		display: inline-block;
+		margin-left: 28px;
+	}
+	#userRePassword{
+		height: 35px;
+		width: 290px;
+		border: 2px solid #ccc;
+		border-radius: 5px;
+	}
+	
+	.xiao-require{
+		color: red;
+	}
+	.xiao-submit-box{
+		position:absolute;
+		width: 80px;
+		height: 40px;
+		line-height: 40px;
+		margin-top: 350px;
+		margin-left:200px;
+		border-radius: 5px;
+		background: grey;
+	}
+	#xiao-submit-button{
+		display: inline-block;
+		width: 80px;
+		height: 40px;
+		border-radius: 5px;
+		background: white;
+	}
+	.xiao-goLogin-box{
+		position:absolute;
+		width: 150px;
+		height: 20px;
+		margin-top: 370px;
+		margin-left:320px;
+ 
+	}
+ 
+	</style>
+</head>
+<body>
+	<div class="xiao-container">
+		<div class="xiao-register-box">
+			<div class="xiao-title-box">
+				<span>用户注册</span>
+			</div>
+			<form action="#" method="post">
+				<div class="xiao-username-box">
+					<span class="xiao-require">*</span>
+					<label for="username">用户名</label>
+					<div class="xiao-username-input">
+						<input type="text" id="username" name="username" placeholder="请输入用户名 长度:6-12个字符" />
+					</div>
+				</div>
+ 
+				<div class="xiao-userPassword-box">
+					<span class="xiao-require">*</span>
+					<label for="userPassword">密码</label>
+					<div class="xiao-userPassword-input">
+						<input type="password" id="userPassword" name="userPassword" placeholder="请输入密码 长度:6-12个字符" />
+					</div>
+				</div>
+ 
+				<div class="xiao-userRePassword-box">
+				<span class="xiao-require">*</span>
+						<label for="userRePassword">确认密码</label>
+					<div class="xiao-userRePassword-input">
+						<input type="password" id="userRePassword" name="userRePassword" placeholder="请重复输入密码" />
+					</div>
+				</div>
+ 
+				
+				
+				<div class="xiao-submit-box">
+					<input id = "xiao-submit-button" type="button" value="注册"  onclick="registPut()">
+				</div>
+				
+				<div class="xiao-goLogin-box">
+					<a href="http://localhost:8080/user/login" style="text-decoration: none;" >已有账号？去登录</a><!--href里加个#就代表在原网址的基础上加请求-->
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js">
+</script>
+<!--导入md5-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.js"></script>
+<script type="text/javascript">
+	function registPut(){
+		var getUserInputValue=document.getElementById("username").value;
+		var getpassWordInputValue=document.getElementById("userPassword").value;
+		var getpassRepeatInputValue=document.getElementById("userRePassword").value;
+		if(!getUserInputValue||!getpassWordInputValue||!getpassRepeatInputValue){
+			alert("用户名或密码不能为空！")
+		}else{
+		//与后台进行信息的交互
+			//alert(getUserInputValue+" "+getpassWordInputValue+" "+getpassRepeatInputValue)
+			var xmlReq=new XMLHttpRequest();
+			xmlReq.timeout=5000;
+			xmlReq.ontimeout=function(event){
+				alert("请求超时!")
+			}
+			var url="/user/findManagerNum";//注意这个地方只保留到这里即可，会自动添加
+			xmlReq.open("GET",url);
+			xmlReq.send();
+			xmlReq.onreadystatechange=function(){
+				if(xmlReq.readyState==4&&xmlReq.status==200){
+					//alert(xmlReq.responseText);已成功
+					var responseId=xmlReq.responseText*10/10+1;//注意获取的是字符串要进行转换
+					var innerXmlReq=new XMLHttpRequest();
+					innerXmlReq.timeout=5000;
+					innerXmlReq.ontimeout=function(event){
+						alert("请求超时！");
+					}
+					//传递密码的md5值
+					var innerurl="/user/registMessage?manageUserID="+responseId+"&ManagerUserNickname="+getUserInputValue+"&passWord="+md5(getpassWordInputValue);
+					innerXmlReq.open("GET",innerurl);
+					innerXmlReq.send();
+					innerXmlReq.onreadystatechange=function(){
+						if(innerXmlReq.readyState==4&&innerXmlReq.status==200){
+							alert("注册成功！");
+							//响应完注册请求后，过几秒种进行页面跳转，跳转至管理界面
+							//这个直接不用睡眠了，因为这个正好是点击完确定按钮后才实现跳转
+							window.location.href="http://localhost:8080/user/a";
+						}
+					}
+				}
+			}
+		}
+	}
+</script>
+</html>
